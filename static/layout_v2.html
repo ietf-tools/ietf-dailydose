@@ -1,0 +1,256 @@
+<!--#include virtual="latest_issue.html" -->
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<title>The Daily Dose of IETF - Issue <!--#echo var="issue" --> - <!--#echo var="issue_date" --></title>    
+
+<style type="text/css">
+<!--#include virtual="/css/wg-page.css" -->
+<!--#include virtual="layout_v2.css" --> 
+</style>
+
+<link rel="alternate" title="RSS" href="/dailydose/dailydose_rss.xml" type="application/rss+xml" />
+<link rel="alternate" title="Atom" href="/dailydose/dailydose_atom.xml" type="application/atom+xml" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<!--#if expr="$include_base_href" -->
+<base href="<!--#echo var="include_base_href" -->" />
+<!--#endif-->
+</head>
+
+<body>
+<script type="text/javascript">
+  function toggleIdDetails(id) {
+  obj = document.getElementById(id);
+  if (obj.style.display == 'none') {
+    obj.style.display = 'block';
+    document.getElementById(id+'b').style.listStyleImage = "url('minus.png')";
+  } else {
+    obj.style.display = 'none';
+    document.getElementById(id+'b').style.listStyleImage = "url('plus.png')";
+  }
+}
+</script>
+
+<div class="page">
+<table border="0" width="100%">
+<tr>
+
+<!-- ==================================================================== 
+         LEFT
+   ====================================================================  -->
+
+<!--#include virtual="/inc/narrow-menu-wgs.html" -->
+
+<!-- ==================================================================== 
+         TOP 
+   ====================================================================  -->
+
+<td>
+
+<div class="dailydose">
+<div class="dailydose_banner" id="dailydose_banner">
+
+<h1>
+<img src="dailydose_title.png" alt="The Daily Dose of IETF" width="565" height="74" id="dailydose_title" /></h1>
+
+<div class="dailydose_slogan">
+&#8220;Be conservative in what you send and liberal in what you accept&#8221;
+</div>
+
+<table class="dailydose_bannermenu">
+<tr>
+<td style="text-align:left;" width="33%">
+<!--#if expr="$issue != \"1\"" -->
+<a href="<!--#echo var="prev_issue"-->.html">&laquo; Prev</a>
+<!--#endif -->
+</td>
+<td>Issue <!--#echo var="issue" --> &mdash; <!--#echo var="issue_date" --></td>
+<td style="text-align:right;" width="33%">
+<!--#if expr="$issue != $latest_issue" -->
+<a href="<!--#echo var="next_issue" -->.html">Next &raquo; </a>
+<!--#endif -->
+</td>
+</tr>
+</table>
+
+</div>
+</div>
+
+<!-- ==================================================================== 
+         BODY TABLE
+   ====================================================================  -->
+
+<div class="dailydose">
+
+<table class="dailydose_columns" id="dailydose_cols">
+<tr>
+<td class="dailydose_news" id="dailydose_col1">
+
+<!--#if expr="$lead" -->
+<!--#include virtual="articles/$lead.html" -->
+<div style="clear:both;padding:1px;"></div>
+<!--#endif -->
+
+<!--#include virtual="${issue}_left.html" -->
+
+<div id="dailydose_col1_end"></div>
+
+</td>
+
+<td class="dailydose_news" id="dailydose_col2">
+
+<!--#if expr="$not_primary_server" -->
+<div class="dailydose_warning">
+Warning: The primary Daily Dose server seems to be experiencing 
+problems. The page you are reading is an approximation
+generated on a secondary server. You might want to check back later
+for the official version.
+</div>
+<!--#endif -->
+
+<!--#if expr="$second" -->
+<!--#include virtual="articles/$second.html" -->
+<!--#endif -->
+
+<!--#include virtual="${issue}_right.html" -->
+
+<h2>Classified Ads</h2>
+
+<!--#if expr="$ad1" -->
+<div class="dailydose_ad">
+<!--#include virtual="articles/$ad1.html" -->
+</div>
+<!--#endif -->
+
+<!--#if expr="$ad2" -->
+<div class="dailydose_ad">
+<!--#include virtual="articles/$ad2.html" -->
+</div>
+<!--#endif -->
+
+<!--#if expr="$ad3" -->
+<div class="dailydose_ad">
+<!--#include virtual="articles/$ad3.html" -->
+</div>
+<!--#endif -->
+
+</td></tr></table>
+
+<div class="dailydose_trailer1" id="dailydose_trailer1">
+<table class="dailydose_trailer2">
+<tr><td>
+
+<p>The Daily Dose of IETF is brought to you by Pasi Eronen.<br />
+Last updated <!--#echo var="last_updated" -->.
+<a href="about.html">more info &#187;</a></p>
+
+<!--#include virtual="/inc/sponsors.shtml" -->
+
+</td></tr></table>
+</div> <!-- dailydose_trailer1 -->
+
+</div> <!-- dailydose -->
+
+</td></tr>
+</table>
+
+</div> <!-- page -->
+
+<script type="text/javascript">
+//<![CDATA[
+
+function dailyDoseSingleColumn() {
+  // move text from 2nd column to 1st
+  var col1 = document.getElementById("dailydose_col1");
+  var col2 = document.getElementById("dailydose_col2");
+  col1.appendChild(col2);
+
+  // remove unneeded padding, adjust width
+  var cols = document.getElementById("dailydose_cols");
+  var banner = document.getElementById("dailydose_banner");
+  var trailer1 = document.getElementById("dailydose_trailer1"); 
+  col1.style.padding = "0";
+  col2.style.padding = "0";
+  cols.style.padding = "0";
+  banner.style.padding = "0";
+  trailer1.style.padding = "0";
+ 
+  // remove left menu bar
+  var els = document.getElementsByTagName("td");
+  for (var i = 0; i < els.length; i++) { 
+    if (els[i].className == "wglist") {
+      els[i].parentNode.removeChild(els[i]);
+      break;
+    }
+  }
+
+  // Scale down title if window is really narrow
+  var title = document.getElementById("dailydose_title");
+  if ((window.innerWidth &&
+       title.clientWidth > window.innerWidth) ||
+      (document.body.clientWidth &&
+       title.clientWidth > document.body.clientWidth)) {
+    var scale;
+    if (window.innerWidth) {
+      scale = (window.innerWidth*0.8) / title.clientWidth;
+    } else {
+      scale = (document.body.clientWidth*0.8) / title.clientWidth;
+    }
+    title.style.width = Math.round(title.clientWidth * scale) + "px";
+    title.style.height = Math.round(title.clientHeight * scale) + "px";
+  }
+}
+
+function dailyDoseDraftNameFirst() {
+  var els = document.getElementsByTagName("span");
+  for (var i = 0; i < els.length-1; i++) {
+    if ((els[i].className == "idtitle") &&
+        (els[i+1].className == "idname")) {
+      
+      // remove parenthesis around idname
+      var tmp = els[i+1].innerHTML;
+      if (tmp.charAt(0) == "(") {
+        els[i+1].innerHTML = tmp.substring(1,tmp.length-1);
+      }
+      els[i].innerHTML = "(" + els[i].innerHTML + ")";
+
+      // reverse order and add line break
+      els[i].parentNode.insertBefore(els[i+1], els[i]);
+      els[i+1].parentNode.insertBefore(document.createElement("br"), els[i+1])
+
+      // remove leading ":" from next text element and add line break
+      tmp = els[i+1].nextSibling;
+      while (tmp) {
+          if (tmp.nodeType == 3) {
+             var j = tmp.nodeValue.indexOf(":");
+             if (j >= 0 && j <= 1) {
+                 tmp.nodeValue = tmp.nodeValue.substring(j+1);
+                 tmp.parentNode.insertBefore(document.createElement("br"), tmp);
+                 break;
+             }
+         } 
+         tmp = tmp.nextSibling;
+      }
+    
+      // fix font size
+      els[i].style.fontSize = "10pt";
+      els[i+1].style.fontSize = "9pt";
+    }
+  }
+}
+
+if ((window.location.search.indexOf("singlecolumn") >= 0)) {
+  dailyDoseSingleColumn();
+}
+
+if (window.location.search.indexOf("draftnamefirst") >= 0) {
+  dailyDoseDraftNameFirst()
+}
+
+//]]>
+</script>
+
+</body></html>

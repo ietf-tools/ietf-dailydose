@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--
+Copyright (C) 2009 Nokia Corporation and/or its subsidiary(-ies).
+All rights reserved. Contact: Pasi Eronen (pasi.eronen@nokia.com)
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+ * Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+ * Redistributions in binary form must reproduce the above
+   copyright notice, this list of conditions and the following
+   disclaimer in the documentation and/or other materials provided
+   with the distribution.
+
+ * Neither the name of the Nokia Corporation and/or its
+   subsidiary(-ies) nor the names of its contributors may be used
+   to endorse or promote products derived from this software
+   without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<html>
+<head>
+  <title>The Daily Dose of IETF - Admin</title>
+  <style type="text/css">
+  <?python tryinclude("admin.css") ?>
+
+table#thetable img {
+  margin-left: 3px;
+  vertical-align: middle;
+}
+  </style>
+</head>
+
+<body onload="addSchedule()">
+
+<?python tryinclude("library.pyht") ?>
+
+<?python 
+import re, cgi
+if form.getfirst("save") == "yes":
+   content = form.getfirst("content")
+   f = open(ARTICLE_DIR+"/schedule", "w")
+   f.write(content)   
+   f.close()    
+?>
+  
+<script>
+</script>
+
+
+<h1>The Daily Dose of IETF &mdash; Admin</h1>
+
+<div class="tabs">
+<a href="articles.pyht" class="tab tabinactive">Articles &amp; Ads</a>
+<a href="images.pyht" class="tab tabinactive">Images</a>
+<a href="" class="tab tabactive">Schedule</a>
+</div>
+
+<h2>Schedule</h2>
+
+<script type="text/javascript">
+
+/* latest first */
+function sortArticles(b,a) {
+  return (b.last_modified  < a.last_modified) - (a.last_modified < b.last_modified);
+}
+/* oldest first */
+function sortSchedule(a,b) {
+  return (b.date  < a.date) - (a.date < b.date);
+}
+var schedule = 
+<?python
+f = open(ARTICLE_DIR+"/schedule");
+for line in f.readlines():
+    print line
+f.close()
+?>
+;
+var weekdays = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+var today = dateToString(new Date());
+var yd = new Date();
+yd.setTime(new Date().getTime()-86400000);
+var yesterday = dateToString(yd);
+
+function addSchedule() {
+  mungleSchedule();
+  for (j = 0; j < schedule.length; j++) {
+     addScheduleEntry(j, schedule[j]);
+     if (getWeekDay(schedule[j].date) == 5) {
+	  var row = document.createElement("tr");
+          var col = document.createElement("td");
+          col.setAttribute("colspan", "6");
+	  col.setAttribute("bgcolor","#d4d0c8"); 
+          col.innerHTML = "";
+          row.appendChild(col);
+          
+           document.getElementById("thetable").appendChild(row);
+
+     }
+  }
+}
+
+function getJson() {
+  var s = "[";
+  var colnames = ["date", "lead", "second", "ad1", "ad2", "ad3" ];
+  var i = 0;
+  while (document.getElementById("r"+i)) {
+    s += "{";
+    for (j = 0; j < 6; j++) { 
+      id = "r"+i+"c"+j;
+      var el = document.getElementById(id);
+      s += "\""+colnames[j]+"\":\""+el.innerHTML+"\",";   
+    }
+    s += "},\n";
+    i++;
+  } 
+  s += "]";
+  return s;
+}
+
+function dropdown(elementId,choices) {  
+  var element = document.getElementById(elementId);
+  if (document.getElementById(elementId+"_dropdown")) {
+   return;
+  }
+  var div = document.createElement("div"); 
+  div.className = "dropdown";
+  div.id = elementId+"_dropdown";
+  var found = 0;
+  var currentValue = document.getElementById(elementId).innerHTML;
+  var a = document.createElement("a");
+  a.href = "javascript:selectDropdown('"+elementId+"','')";
+  a.innerHTML = "&lt;none&gt;";
+  div.appendChild(a);
+  div.appendChild(document.createElement("br"));
+  for (var i = 0; i < choices.length; i++) {
+        var a = document.createElement("a");
+        a.href = "javascript:selectDropdown('"+elementId+"','"+choices[i]+"')";
+        a.innerHTML = choices[i];
+        if (choices[i] == currentValue) {  
+            found = 1;
+        }
+        div.appendChild(a);
+        div.appendChild(document.createElement("br"));
+  }   
+  if (!found && (currentValue != "")) {
+    var a = document.createElement("a");
+    a.href = "javascript:selectDropdown('"+elementId+"','"+currentValue+"')";
+    a.innerHTML = currentValue;
+    div.appendChild(a);
+  }
+  element.appendChild(div);
+}
+function selectDropdown(elementId, value)
+{ 
+  var el = document.getElementById(elementId+"_dropdown");
+  document.getElementById(elementId).innerHTML = value;
+  el.parentNode.removeChild(el);
+}
+
+var articlesForDropdown = articles;
+articlesForDropdown.sort(sortArticles);
+while (articlesForDropdown.length > 10) {
+  articlesForDropdown.pop();
+}
+for (i = 0; i < articlesForDropdown.length; i++) {
+  x = articlesForDropdown[i].name;
+  if (x.substr(x.length-5) == ".html") {
+    x = x.substr(0,x.length-5);
+  }
+  articlesForDropdown[i] = x;
+  
+}
+
+function addArticleDropdown(id, value) {
+  var s = document.createElement("span");
+  var s1 = document.createElement("span");
+  s1.id = id;
+  s1.innerHTML = (value == undefined) ? "" : value;
+  var s2 = document.createElement("img");
+  s2.setAttribute("src", "dropdown.png");
+  s2.setAttribute("onclick", "dropdown('"+id+"',articlesForDropdown)");
+  s.appendChild(s1);
+  s.appendChild(s2);
+  return s;
+}
+
+function mungleSchedule() {
+  schedule.sort(sortSchedule); 
+  var i = 0;
+  while ((schedule.length > 0) && (schedule[0].date < yesterday)) {
+     schedule.shift();
+  }
+  var monthFromNow = today;
+  for (i = 0; i < 20; i++) {
+    monthFromNow = nextWeekDay(monthFromNow);
+  } 
+  var d = (schedule.length > 0) ? nextWeekDay(schedule[schedule.length-1].date) : nextWeekDay(yesterday);
+  while (d < monthFromNow) { 
+    schedule.push({"date":d});
+    d = nextWeekDay(d);
+  }
+}
+
+function addScheduleEntry(rownro, x) {
+  var row = document.createElement("tr");
+  row.setAttribute("id", "r"+rownro);
+  var cell = document.createElement("td");
+  cell.appendChild(document.createTextNode(weekdays[getWeekDay(x.date)]+" "));
+  var s = document.createElement("span");
+  s.innerHTML = x.date;
+  s.setAttribute("id", "r"+rownro+"c0");
+  cell.appendChild(s);
+  row.appendChild(cell);
+  
+  cell = document.createElement("td");
+  cell.appendChild(addArticleDropdown("r"+rownro+"c1", x.lead));
+  row.appendChild(cell);
+
+  cell = document.createElement("td");
+  cell.appendChild(addArticleDropdown("r"+rownro+"c2", x.second));
+  row.appendChild(cell);
+
+  cell = document.createElement("td");
+  cell.appendChild(addArticleDropdown("r"+rownro+"c3", x.ad1));
+  row.appendChild(cell);
+
+  cell = document.createElement("td");
+  cell.appendChild(addArticleDropdown("r"+rownro+"c4", x.ad2));
+  row.appendChild(cell);
+
+  cell = document.createElement("td");
+  cell.appendChild(addArticleDropdown("r"+rownro+"c5", x.ad3));
+  row.appendChild(cell);
+  
+  document.getElementById("thetable").appendChild(row);
+}
+
+function saveSchedule() {
+  document.forms["form"].elements["content"].value = getJson();
+  document.forms["form"].submit();
+}
+
+</script>
+
+<p class="tools">
+<button name="save" value="save" type="button" onclick="saveSchedule()"><b>Save</b></button>
+<button name="save" value="save" type="button" onclick="document.location='schedule.pyht'">Discard changes</button>
+</p>
+
+<table border="1" cellpadding="4" cellspacing="0" id="thetable" width="100%">
+<tr bgcolor="#c3d9ff">
+<th width="100">Date</th><th width="18%">Lead</th><th width="18%">Second</th><th width="18%">Ad1</th><th width="18%">Ad2</th><th width="18%">Ad3</th>
+</tr>
+</table>
+
+<div style="visibility:hidden;">
+<form name="form" action="schedule.pyht" method="post">
+<input type="hidden" value="yes" name="save" />
+<textarea name="content"></textarea>
+</form>
+</div>
+
+</body>
+</html>

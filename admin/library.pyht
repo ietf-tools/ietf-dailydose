@@ -1,0 +1,82 @@
+<?python
+
+# Copyright (C) 2009 Nokia Corporation and/or its subsidiary(-ies).
+# All rights reserved. Contact: Pasi Eronen <pasi.eronen@nokia.com>
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#
+#  * Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  * Redistributions in binary form must reproduce the above
+#    copyright notice, this list of conditions and the following
+#    disclaimer in the documentation and/or other materials provided
+#    with the distribution.
+#
+#  * Neither the name of the Nokia Corporation and/or its
+#    subsidiary(-ies) nor the names of its contributors may be used
+#    to endorse or promote products derived from this software
+#    without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+# OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+ARTICLE_DIR='/www/tools.ietf.org/dailydose/articles'
+
+def get_files_json(regexp):
+    global ARTICLE_DIR
+    import os, re
+    dirlist = os.listdir(ARTICLE_DIR)
+    files = [ x for x in dirlist if re.search(regexp, x) ]
+    files.sort()
+    s = "["
+    for file in files:
+        statinfo = os.stat(ARTICLE_DIR+"/"+file)
+        s = s + '{ "name":"%s", "size":%d, "last_modified":%d },'%(file,statinfo[6],statinfo[8])
+    return s + "]"
+
+?>
+<script type="text/javascript">
+var articles = <?python get_files_json("\.html$") ?>;
+var images = <?python get_files_json("\.(jpg|jpeg|png)$") ?>;
+</script>
+
+<script>
+function dateToString(date) {
+  var m = date.getMonth()+1;
+  var d = date.getDate();
+  return (date.getFullYear() + "-" + ((m < 10) ? "0"+m : m) + "-" + ((d < 10) ? "0"+d : d));
+   
+}
+function format_date(d) {
+  var date = new Date();
+  date.setTime(d);
+  return dateToString(date);
+}
+function stringToDate(ds) {
+  var d = new Date();
+  d.setFullYear(ds.substr(0,4),ds.substr(5,2)-1,ds.substr(8,2));
+  return d;
+}
+function getWeekDay(ds) {
+  return stringToDate(ds).getDay();
+}
+function nextWeekDay(ds) {
+  var d = stringToDate(ds);
+  do {
+     d.setTime(d.getTime()+86400000);
+  } while ((d.getDay() == 0) || (d.getDay() == 6));
+  return dateToString(d);
+}
+</script>

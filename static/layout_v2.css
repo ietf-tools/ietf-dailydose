@@ -1,0 +1,114 @@
+/* dailydose/layout_v2.css */
+.page {
+    width: 99%;
+}
+div[class=page] {
+    width: 99%;
+    max-width: 73em;
+}
+
+.dailydose td, div.dailydose  {
+    font-family: sans-serif;
+    font-size: 10pt;
+}
+
+.dailydose .dailydose_banner {
+    padding: 25px 20px 5px 20px;
+    text-align: center; 
+}
+.dailydose .dailydose_banner h1 { padding: 0; margin: 0;}
+.dailydose .dailydose_banner .dailydose_slogan {
+    font-size: 120%;
+    font-family: serif;
+    font-style: italic;
+    letter-spacing: 0.4px;
+    padding: 5px 0 15px 0;
+}
+
+.dailydose .dailydose_banner .dailydose_bannermenu {
+    border-top: solid black 1px;
+    border-bottom: solid black 1px;
+    width:100%;
+}
+.dailydose .dailydose_banner .dailydose_bannermenu td {
+    text-align: center;
+    font-weight: bold;
+    font-size: 80%;	
+}
+.dailydose .dailydose_banner .dailydose_bannermenu a { text-decoration: none; color: black; }
+
+.dailydose .dailydose_trailer1 {
+   padding: 25px 20px 5px 20px;
+}
+.dailydose .dailydose_trailer2 {
+    width: 100%;
+    border-top: solid black 1px;
+    text-align: center;
+}
+
+.dailydose .dailydose_columns {
+    width: 100%;
+    padding: 0 10px 0 10px;
+}
+.dailydose .dailydose_news { padding: 0 10px 0 10px; }
+.dailydose td.dailydose_news { width: 50%; }
+
+.dailydose .dailydose_news h2 {
+    background-color:#c3d9ff;
+    font-size:12pt;
+    padding:3px 4px 3px 6px;
+    margin-top: 12pt;
+    margin-bottom: 12pt;
+}
+.dailydose .dailydose_news h2 img { padding:3px 3px 0 0; border: 0; }
+.dailydose .dailydose_news h2 a { color:black; text-decoration:none; }
+
+.dailydose .dailydose_news img { border: 1px solid black; }
+.dailydose .dailydose_news ul { padding-left: 1em; margin:1em; }  
+.dailydose .dailydose_news ul.links { list-style-image: url('/dailydose/square.png'); }
+.dailydose .dailydose_news ul.expands { list-style-image: url('/dailydose/plus.png'); }
+.dailydose .dailydose_news li { margin-bottom:3pt; }
+.dailydose .dailydose_news .author { font-size: 9pt; }
+.dailydose .dailydose_news .idtitle { color: #0000ee; }
+.dailydose .dailydose_news .idname { font-size: 9pt; white-space: nowrap; }
+.dailydose .dailydose_news .format {
+    border: 1px solid gray; 
+    font-size:75%;
+    padding: 0 1px 0 1px;
+    text-decoration: none;
+    color: black;
+}
+.dailydose .dailydose_news div.more {
+    text-align:right;
+    margin-top:-1em;
+    margin-bottom:-5pt;
+    font-size: 8pt;
+}
+
+.dailydose div.iddetails {
+    border-top: 1px solid gray;
+    border-right: 2px solid gray;
+    border-bottom: 2px solid gray;
+    border-left: 1px solid gray;
+    margin-top: 0.5ex;
+    margin-left: 0ex;
+    margin-bottom: 0.5ex;
+    margin-right: 0ex;
+    padding: 0px 1ex 0px 1ex;
+    background-color: #ffffcc;
+}
+.dailydose .idtools { border-top: 1px dashed gray; padding-top: 5pt; }
+.dailydose .idtools p { margin-top: 2pt; }
+
+.dailydose .dailydose_ad h3 { margin-bottom: 0pt; }
+.dailydose .dailydose_ad p { margin-top: 0pt; }
+
+.dailydose .dailydose_warning {
+    border: solid black 1px; 
+    padding: 4px 4px 4px 4px; 
+    margin-top: 12pt; 
+    background-color: #ffffcc;  
+    font-weight:bold; 
+    color:#c00000;
+}
+/* end of dailydose/layout_v2.css */
