@@ -82,7 +82,7 @@ while (@files > 0) {
     my $url = shift @files;
     #print "download_data: Downloading $url\n";
     unlink "$newer/$file";
-    my $ret = system("$WGET -nv -O $newer/$file $url");
+    my $ret = system("$WGET -nv --no-check-certificate -O $newer/$file $url");
     if ($ret != 0) {
 	print "download_data: Error retrieving $url\n";
 	if ($error_count++ < $MAX_ERRORS) {
