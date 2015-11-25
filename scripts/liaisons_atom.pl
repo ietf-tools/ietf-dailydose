@@ -33,7 +33,8 @@
 use strict;
 use MyAtomWriter;
 
-my $base = 'https://datatracker.ietf.org/liaison/';
+my $base1 = 'https://datatracker.ietf.org/liaison/';
+my $base2 = 'https://datatracker.ietf.org';
 
 die "usage: liaisons_atom data-XXX data-YYY\n" unless (@ARGV == 2);
 my $input = $ARGV[1] . '/liaisons.html';
@@ -43,7 +44,7 @@ my $atom = new MyAtomWriter();
 $atom->feed
     (
      title => 'IETF Liaison Statements',
-     link => $base,
+     link => $base1,
      id => "tag:pasi\@people.nokia.net,2007:liaisons_atom",
      author => '?'
      );
@@ -52,11 +53,11 @@ open(INPUT, $input) || die "$input: $!\n";
 my $count = 0;
 $/ = '</tr>';
 while ($_ = <INPUT>) {
-    if (/<td[^>]*>(\d\d\d\d-\d\d-\d\d)<\/td>\s*<td>\s*(.*?)\s*<\/td>\s*<td>\s*(.*?)\s*<\/td>.*<a href="(.*?)">(.*?)</is) {
+    if (/<td[^>]*>(\d\d\d\d-\d\d-\d\d)<\/td>\s*<td[^>]*>\s*(.*?)\s*<\/td>\s*<td[^>]*>\s*(.*?)\s*<\/td>.*<a href="(.*?)">(.*?)</is) {
         my ($date,$org,$token,$link,$title) = ($1,$2,$3,$4,$5,$6);
         $title =~ s/^Liaison (Statement|Attachment):\s+//i;
         unless ($link =~ /^https?:/i) {
-            $link = $base . $link;
+            $link = $base2 . $link;
         }
         my $id = "tag:pasi\@people.nokia.net,2007:ietf_liaisons_rss,$link";
         $atom->entry
