@@ -44,7 +44,7 @@ sub unquote {
     return $s;
 }
 
-my $base = "http://www1.ietf.org/mail-archive/web/ietf-announce/current/";
+my $base = "https://www.ietf.org/mail-archive/web/ietf-announce/current/";
 
 die "usage: ietf_announce_atom data-XXX data-YYY\n" unless (@ARGV == 2);
 my $input = $ARGV[1] . '/ietf-announce-index.html';
