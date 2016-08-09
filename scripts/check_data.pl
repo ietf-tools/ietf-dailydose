@@ -53,7 +53,7 @@ print "check_data: $file ok, $count\n";
 # 1id-abstracts.txt
 
 $file = "$DIR/1id-abstracts.txt";
-open(IN, "<:encoding(iso-8859-1)", $file) || die "$file: $!\n";
+open(IN, "<:utf8", $file) || die "$file: $!\n";
 $count = 0;
 while ($_ = <IN>) {
     $count++ if (/^\s*$/);

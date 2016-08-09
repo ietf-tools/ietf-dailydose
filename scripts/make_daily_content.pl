@@ -91,7 +91,7 @@ sub print_li {
 
 sub read_id_abstracts {
     my ($file) = @_;
-    open(IN, "<:encoding(iso-8859-1)", $file) || die "$file: $!\n";
+    open(IN, "<:utf8", $file) || die "$file: $!\n";
     my ($tmp, $doc);
     $doc = '';
     while ($_ = <IN>) {
