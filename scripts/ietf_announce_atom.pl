@@ -68,7 +68,7 @@ $atom_rfc->feed
      author => "?"
      );
 
-open(INPUT, $input) || die "$input: $!\n";
+open(INPUT, "<:utf8", $input) || die "$input: $!\n";
 while ($_ = <INPUT>) {
     if (/href="(msg\d+\.html)">(.*?)<\/a>(.*?)<\/li>/i) {
 	my ($link, $title, $author) = ($1, $2, $3);
