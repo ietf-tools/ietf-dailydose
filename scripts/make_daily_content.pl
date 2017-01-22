@@ -156,12 +156,9 @@ sub print_doc {
     } else {
 	print "<p>No title available; expired document? &nbsp; ";
     }
-    my $txt_url = "http://www.ietf.org/internet-drafts/$doc-$versions{$doc}.txt";
-    my $html_url = "http://tools.ietf.org/html/$doc-$versions{$doc}.html";    
-    my $pdf_url = "http://tools.ietf.org/pdf/$doc-$versions{$doc}.pdf";
-    if (!exists $titles{$doc} || ($statuses{$doc} =~ /expired/i)) {
-	$txt_url = "http://tools.ietf.org/id/$doc-$versions{$doc}.txt";
-    }
+    my $txt_url = "https://www.ietf.org/archive/id/$doc-$versions{$doc}.txt";
+    my $html_url = "https://tools.ietf.org/html/$doc-$versions{$doc}.html";
+    my $pdf_url = "https://tools.ietf.org/pdf/$doc-$versions{$doc}.pdf";
     print "<a href=\"$txt_url\" class=\"format\">TXT</a> <a href=\"$html_url\" class=\"format\">HTML</a> <a href=\"$pdf_url\" class=\"format\">PDF</a></p>\n";
 
     if (exists $abstracts{$doc}) {
