@@ -124,6 +124,7 @@ sub read_id_statuses {
 	next unless (my ($doc,$version,$date,$status) =
 		     /^(draft-\S+)-(\d\d)\t(\S+)\t(.*)/);
 	$versions{$doc} = $version;
+	$status =~ s/^Replaced replaced /Replaced /;
 	$statuses{$doc} = trim($status);
     }
     close IN;
