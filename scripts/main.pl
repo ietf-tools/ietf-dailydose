@@ -33,7 +33,7 @@
 
 use strict;
 
-my $BASE_URL = "http://tools.ietf.org/dailydose/";
+my $BASE_URL = "https://tools.ietf.org/dailydose/";
 my $DIR = "/www/tools.ietf.org/dailydose";
 my $DATA = $DIR . "/data"; 
 my $PERL = 'perl';
