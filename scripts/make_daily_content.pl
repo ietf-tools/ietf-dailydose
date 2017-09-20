@@ -149,7 +149,7 @@ sub print_doc {
     my $rfc_number;
     if ($statuses{$doc} =~ /\s*RFC\s+(\d+)\s*$/) {
 	$rfc_number = $1;
-        $rfc_url = "http://www.rfc-editor.org/rfc/rfc$rfc_number.txt";
+        $rfc_url = "https://www.rfc-editor.org/rfc/rfc$rfc_number.txt";
 	print "<p><a href=\"$rfc_url\">rfc$rfc_number.txt</a></p>\n";
     }
     if (exists $titles{$doc}) {
@@ -169,10 +169,10 @@ sub print_doc {
     my $oldout = select $idtools_str;
     if ($options =~ /diff/ && ($versions{$doc} > 0)) {
 	my $prev_version = sprintf "%02d", $versions{$doc}-1;
-	my $diff_url = "http://tools.ietf.org/tools/rfcdiff/rfcdiff.pyht?url1=http://tools.ietf.org/id/$doc-$prev_version.txt&amp;url2=http://tools.ietf.org/id/$doc-$versions{$doc}.txt";
+	my $diff_url = "https://tools.ietf.org/tools/rfcdiff/rfcdiff.pyht?url1=https://tools.ietf.org/id/$doc-$prev_version.txt&amp;url2=https://tools.ietf.org/id/$doc-$versions{$doc}.txt";
 	print "<a href=\"$diff_url\">Diff from $prev_version to $versions{$doc} &raquo;</a><br />\n"; 
     } elsif ($rfc_url ne '') {
-	my $diff_url = "http://tools.ietf.org/tools/rfcdiff/rfcdiff.pyht?url1=http://tools.ietf.org/id/$doc-$versions{$doc}.txt&amp;url2=$rfc_url";
+	my $diff_url = "https://tools.ietf.org/tools/rfcdiff/rfcdiff.pyht?url1=https://tools.ietf.org/id/$doc-$versions{$doc}.txt&amp;url2=$rfc_url";
 	print "<a href=\"$diff_url\">Diff from $doc-$versions{$doc} to RFC $rfc_number &raquo;</a><br />\n";
     }
     
@@ -187,11 +187,11 @@ sub print_doc {
 	my $wg = $1;
 	my $wgu = $wg;
 	$wgu =~ tr/a-z/A-Z/;
-	print "<a href=\"http://tools.ietf.org/wg/$wg/$doc\">Document details &raquo;</a><br />\n";
-	print "<a href=\"http://tools.ietf.org/wg/$wg/\">$wgu WG &raquo;</a><br />\n";
+	print "<a href=\"https://tools.ietf.org/wg/$wg/$doc\">Document details &raquo;</a><br />\n";
+	print "<a href=\"https://tools.ietf.org/wg/$wg/\">$wgu WG &raquo;</a><br />\n";
     }
     if ($statuses{$doc} =~ /rfc ed/i) {
-	print "<a href=\"http://www.rfc-editor.org/queue2.html#$doc\">RFC Editor Queue &raquo;</a><br />\n";
+	print "<a href=\"https://www.rfc-editor.org/queue2.html#$doc\">RFC Editor Queue &raquo;</a><br />\n";
 	#print "<a href=\"http://rtg.ietf.org/~fenner/ietf/rfc/hist.cgi?draft=$doc\">RFC Editor Queue History &raquo;</a><br />\n";
     }
     select $oldout;
@@ -282,9 +282,9 @@ print_start_ul("links");
 print_atom_unread("$newer/ietf_announce_nonrfc_unread.xml");
 print_end_ul();
 
-print '<div class="more"><a href="http://www.ietf.org/mail-archive/web/ietf-announce/">more messages &raquo;</a></div>', "\n\n";
+print '<div class="more"><a href="https://www.ietf.org/mail-archive/web/ietf-announce/">more messages &raquo;</a></div>', "\n\n";
 
-print '<h2><a href="http://tools.ietf.org/html/new-rfcs.rss"><img src="feedicon16.png" style="float:right;" alt="[Feed]" /></a> New RFCs</h2>', "\n";
+print '<h2><a href="https://tools.ietf.org/html/new-rfcs.rss"><img src="feedicon16.png" style="float:right;" alt="[Feed]" /></a> New RFCs</h2>', "\n";
 print_start_ul("links");
 print_atom_unread("$newer/ietf_announce_rfc_unread.xml");
 print_end_ul();
@@ -367,7 +367,7 @@ print_atom_unread("$newer/iaoc_minutes_unread.xml");
 print_atom_unread("$newer/trust_minutes_unread.xml");
 print_end_ul();
 
-print '<div class="more">more minutes: <a href="http://www.ietf.org/iesg/minutes.html">IESG &raquo;</a> &nbsp; <a href="http://www.iab.org/documents/iabmins/indext.html">IAB &raquo;</a> &nbsp; <a href="http://iaoc.ietf.org/minutes/iaoc_minutes.html">IAOC &raquo;</a> &nbsp; <a href="http://trustee.ietf.org/minutes.html">Trust &raquo;</a></div>', "\n\n";
+print '<div class="more">more minutes: <a href="https://www.ietf.org/iesg/minutes.html">IESG &raquo;</a> &nbsp; <a href="https://www.iab.org/documents/minutes/">IAB &raquo;</a> &nbsp; <a href="https://iaoc.ietf.org/minutes.html">IAOC &raquo;</a> &nbsp; <a href="https://trustee.ietf.org/minutes.html">Trust &raquo;</a></div>', "\n\n";
 
 #---------------------------------------------------------------------------
 
