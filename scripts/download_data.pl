@@ -57,10 +57,10 @@ my @files =
      'https://datatracker.ietf.org/liaison/',
 
      'iesg_minutes1.html',
-     'http://www.ietf.org/iesg/minutes/2016/',
+     'http://www.ietf.org/iesg/minutes/2017/',
 
      'iesg_minutes2.html',
-     'http://www.ietf.org/iesg/minutes/2017/',
+     'http://www.ietf.org/iesg/minutes/2018/',
 
      'iabmins.html',
      'http://www.iab.org/documents/minutes/',
