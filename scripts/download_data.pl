@@ -42,13 +42,13 @@ my $MAX_ERRORS = 1;
 my @files =
     (
      'ietf-announce-index.html',
-     'http://www.ietf.org/mail-archive/web/ietf-announce/current/maillist.html',
+     'https://www.ietf.org/mail-archive/web/ietf-announce/current/maillist.html',
 
      'all_id.txt',
-     'http://www.ietf.org/internet-drafts/all_id.txt',
+     'https://www.ietf.org/id/all_id.txt',
 
      '1id-abstracts.txt',
-     'http://www.ietf.org/internet-drafts/1id-abstracts.txt',
+     'https://www.ietf.org/id/1id-abstracts.txt',
 
      'ipr_disclosures_atom.xml',
      'https://datatracker.ietf.org/feed/ipr/',
@@ -57,22 +57,22 @@ my @files =
      'https://datatracker.ietf.org/liaison/',
 
      'iesg_minutes1.html',
-     'http://www.ietf.org/iesg/minutes/2017/',
+     'https://www.ietf.org/iesg/minutes/2017/',
 
      'iesg_minutes2.html',
-     'http://www.ietf.org/iesg/minutes/2018/',
+     'https://www.ietf.org/iesg/minutes/2018/',
 
      'iabmins.html',
-     'http://www.iab.org/documents/minutes/',
+     'https://www.iab.org/documents/minutes/',
 
      'iaoc_minutes.html',
-     'http://iaoc.ietf.org/minutes.html',
+     'https://iaoc.ietf.org/minutes.html',
 
      'trust_minutes.html',
-     'http://trustee.ietf.org/minutes.html',
+     'https://trustee.ietf.org/minutes.html',
 
      'rfc_queue.xml',
-     'http://www.rfc-editor.org/queue.xml'
+     'https://www.rfc-editor.org/queue.xml'
      );
 
 my $error_count = 0;
