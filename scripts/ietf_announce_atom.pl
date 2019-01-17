@@ -44,7 +44,8 @@ sub unquote {
     return $s;
 }
 
-my $base = "https://www.ietf.org/mail-archive/web/ietf-announce/current/";
+my $base1 = "https://mailarchive.ietf.org";
+my $base2 = $base1 . "/arch/browse/ietf-announce/";
 
 die "usage: ietf_announce_atom data-XXX data-YYY\n" unless (@ARGV == 2);
 my $input = $ARGV[1] . '/ietf-announce-index.html';
@@ -55,7 +56,7 @@ my $atom_nonrfc = new MyAtomWriter();
 $atom_nonrfc->feed
     (
      title => 'IETF-Announce List (except RFCs)',
-     link => $base,
+     link => $base2,
      id => "tag:pasi\@people.nokia.net,2007:ietf_announce_nonrfc_atom",
      author => "?"
      );
@@ -63,23 +64,19 @@ my $atom_rfc = new MyAtomWriter();
 $atom_rfc->feed
     (
      title => 'IETF-Announce List (RFCs only)',
-     link => $base,
+     link => $base2,
      id => "tag:pasi\@people.nokia.net,2007:ietf_announce_rfc_atom",
      author => "?"
      );
 
 open(INPUT, "<:utf8", $input) || die "$input: $!\n";
 while ($_ = <INPUT>) {
-    if (/href="(msg\d+\.html)">(.*?)<\/a>(.*?)<\/li>/i) {
-	my ($link, $title, $author) = ($1, $2, $3);
-	$author =~ s/<.*?>//g;
-	$author =~ s/^[\s,]+//;
+    if (/href="(\/arch\/msg\/.*?)">(.*?)<\/a>/i) {
+	my ($link, $title) = ($1, $2);
 	$title =~ s/\s+/ /g;
-	next unless ($link =~ /msg(\d+)/);
-	my $id = "tag:pasi\@people.nokia.net,2005:ietf_announce_rss,$1";
+	my $id = "tag:pasi\@people.nokia.net,2005:ietf_announce_rss,$link";
 	my $atom_feed;
-	if (($author =~ /rfc.editor/i) &&
-	    ($title =~ /RFC \d\d\d\d on/)) {
+	if ($title =~ /^RFC \d+ on /) {
 	    $atom_feed = $atom_rfc;
 	} else {
 	    $atom_feed = $atom_nonrfc;
@@ -87,8 +84,8 @@ while ($_ = <INPUT>) {
 	$atom_feed->entry
 	    (
 	     title => unquote($title),
-	     author => unquote($author),
-	     link => ($base . $link),
+	     author => "",
+	     link => ($base1 . $link),
 	     id => $id
 	     );
     }     

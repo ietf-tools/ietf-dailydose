@@ -42,7 +42,7 @@ my $MAX_ERRORS = 1;
 my @files =
     (
      'ietf-announce-index.html',
-     'https://www.ietf.org/mail-archive/web/ietf-announce/current/maillist.html',
+     'https://mailarchive.ietf.org/arch/browse/ietf-announce/',
 
      'all_id.txt',
      'https://www.ietf.org/id/all_id.txt',
