@@ -6,6 +6,5 @@ if [ "$progdir" = "." ]; then progdir="$PWD"; fi
 parent=$(dirname $progdir)
 if [ "$parent" = "." ]; then parent="$PWD"; fi
 
-source $progdir/docker-configuration.sh
 
 docker build -t dailydose $progdir

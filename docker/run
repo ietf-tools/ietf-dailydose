@@ -6,11 +6,9 @@ if [ "$progdir" = "." ]; then progdir="$PWD"; fi
 parent=$(dirname $progdir)
 if [ "$parent" = "." ]; then parent="$PWD"; fi
 
-source $progdir/docker-configuration.sh
-
 mkdir -p $parent/docker-data
 
 PORT=4444
-echo Starting container, go to http://$IP_ADDRESS:$PORT/dailydose/
+echo Starting container, go to http://localhost:$PORT/dailydose/
 
 docker run -t -i -p $PORT:80 -v $parent:/www/tools.ietf.org/dailydose/dailydose-current -v $parent/docker-data:/www/tools.ietf.org/dailydose dailydose

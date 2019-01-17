@@ -43,13 +43,6 @@ But all hope is not lost -- there's now a Docker image that hopefully
 makes it possible to hack Daily Dose more easily (originally the
 development was done mainly by ssh'ing to the production servers :-).
 
-The instructions and scripts are written for OSX and Docker Toolbox
-("brew cask install dockertoolbox", or from
-https://www.docker.com/docker-toolbox). If you have Linux,
-docker/docker-configuration.sh probably needs tweaking (pull requests
-welcome). If you have Windows, just run Linux in VirtualBox or
-something...
-
 First, build the image: `docker/build`.
 
 Next, start the container: `docker/run`:
