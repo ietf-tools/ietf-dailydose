@@ -282,14 +282,14 @@ print_start_ul("links");
 print_atom_unread("$newer/ietf_announce_nonrfc_unread.xml");
 print_end_ul();
 
-print '<div class="more"><a href="https://www.ietf.org/mail-archive/web/ietf-announce/">more messages &raquo;</a></div>', "\n\n";
+print '<div class="more"><a href="https://mailarchive.ietf.org/arch/browse/ietf-announce/">more messages &raquo;</a></div>', "\n\n";
 
-print '<h2><a href="https://tools.ietf.org/html/new-rfcs.rss"><img src="feedicon16.png" style="float:right;" alt="[Feed]" /></a> New RFCs</h2>', "\n";
+print '<h2><a href="https://www.rfc-editor.org/rfcrss.xml"><img src="feedicon16.png" style="float:right;" alt="[Feed]" /></a> New RFCs</h2>', "\n";
 print_start_ul("links");
 print_atom_unread("$newer/ietf_announce_rfc_unread.xml");
 print_end_ul();
 
-print '<div class="more"><a href="http://www.rfc-editor.org/new_rfcs.html">more recent RFCs &raquo;</a></div>', "\n\n";
+print '<div class="more"><a href="https://www.rfc-editor.org/rfc-index-100d.html">more recent RFCs &raquo;</a></div>', "\n\n";
 
 #---------------------------------------------------------------------------
 
@@ -367,7 +367,7 @@ print_atom_unread("$newer/iaoc_minutes_unread.xml");
 print_atom_unread("$newer/trust_minutes_unread.xml");
 print_end_ul();
 
-print '<div class="more">more minutes: <a href="https://www.ietf.org/iesg/minutes.html">IESG &raquo;</a> &nbsp; <a href="https://www.iab.org/documents/minutes/">IAB &raquo;</a> &nbsp; <a href="https://iaoc.ietf.org/minutes.html">IAOC &raquo;</a> &nbsp; <a href="https://trustee.ietf.org/minutes.html">Trust &raquo;</a></div>', "\n\n";
+print '<div class="more">more minutes: <a href="https://www.ietf.org/about/groups/iesg/minutes/">IESG &raquo;</a> &nbsp; <a href="https://www.iab.org/documents/minutes/">IAB &raquo;</a> &nbsp; <a href="https://iaoc.ietf.org/minutes.html">IAOC &raquo;</a> &nbsp; <a href="https://trustee.ietf.org/minutes.html">Trust &raquo;</a></div>', "\n\n";
 
 #---------------------------------------------------------------------------
 
