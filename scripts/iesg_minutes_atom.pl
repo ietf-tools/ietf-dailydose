@@ -33,7 +33,8 @@
 use strict;
 use MyAtomWriter;
 
-my $base = 'http://www.ietf.org/iesg/minutes';
+my $base1 = 'https://www.ietf.org/about/groups/iesg/minutes/';
+my $base2 = 'https://www.ietf.org/iesg/minutes';
 
 die "usage: iesg_minutes_atom data-XXX data-YYY\n" unless (@ARGV == 2);
 my $input1 = $ARGV[1] . '/iesg_minutes1.html';
@@ -45,7 +46,7 @@ my $atom_official = new MyAtomWriter();
 $atom_official->feed
     (
      title => 'IESG Teleconference Official Minutes',
-     link => $base,
+     link => $base1,
      id => "tag:pasi\@people.nokia.net,2009:iesg_minutes_atom:official",
      author => "IESG"
      );
@@ -53,16 +54,17 @@ my $atom_narrative = new MyAtomWriter();
 $atom_narrative->feed
     (
      title => 'IESG Teleconference Narrative Minutes',
-     link => $base,
+     link => $base1,
      id => "tag:pasi\@people.nokia.net,2009:iesg_minutes_atom:narrative",
      author => "IESG"
      );
 
 foreach my $input ($input2, $input1) {
     open(INPUT, "<:utf8", $input) || die "$input: $!\n";
+    $/ = '</li>';
     while ($_ = <INPUT>) {
-	if (/ href="(minutes-)(\d\d\d\d)(-\d\d-\d\d)(\.\w+)"/i) {
-	    my $link = "$base/$2/$1$2$3$4";
+	if (/ href="https:\/\/www.?\.ietf\.org\/iesg\/minutes\/\d+\/(minutes-)(\d\d\d\d)(-\d\d-\d\d)(\.\w+)"/i) {
+	    my $link = "$base2/$2/$1$2$3$4";
 	    my $date = "$2$3";
 	    my $id = "tag:pasi\@people.nokia.net,2009:iesg_minutes_atom,official,$date";
 	    $atom_official->entry
@@ -73,8 +75,8 @@ foreach my $input ($input2, $input1) {
 		 updated => $date
 		);
 	}
-	if (/ href="(narrative-minutes-)(\d\d\d\d)(-\d\d-\d\d)(\.\w+)"/i) {
-	    my $link = "$base/$2/$1$2$3$4";
+	if (/ href="https:\/\/www.?\.ietf\.org\/iesg\/minutes\/\d+\/(narrative-minutes-)(\d\d\d\d)(-\d\d-\d\d)(\.\w+)"/i) {
+	    my $link = "$base2/$2/$1$2$3$4";
 	    my $date = "$2$3";
 	    my $id = "tag:pasi\@people.nokia.net,2009:iesg_minutes_atom,narrative,$date";
 	    $atom_narrative->entry
