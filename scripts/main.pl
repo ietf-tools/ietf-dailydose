@@ -125,7 +125,7 @@ close IN;
 # Build issue and update feeds
 
 print "main: building issue $issue\n";
-system("$PERL new_issue.pl $data_new $issue $DIR" . ($PRIMARY ? "" : " --not-primary")) 
+system("$PERL new_issue.pl $data_new $issue $DIR $hostname" . ($PRIMARY ? "" : " --not-primary"))
     && die "main: new_issue failed\n";
 
 print "main: committing state\n";

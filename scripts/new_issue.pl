@@ -92,7 +92,7 @@ sub select_schedule_entry {
 }
 
 my $PRIMARY = 1;
-if ((@ARGV == 4) && ($ARGV[3] eq "--not-primary")) {
+if ((@ARGV == 5) && ($ARGV[4] eq "--not-primary")) {
     $PRIMARY = 0;
     pop @ARGV;
 }
@@ -101,6 +101,7 @@ die "usage: new_issue data-dir issue-number output-dir\n" unless (@ARGV == 3);
 my $newer = $ARGV[0];
 my $issue = $ARGV[1];
 my $dir = $ARGV[2];
+my $hostname = $ARGV[3];
 my $output = "$dir/$issue.html";
 my $schedule_file = "$dir/articles/schedule";
 
@@ -150,6 +151,7 @@ print <<"END";
 
 <!--#include virtual="layout_v2.html" -->
 <!-- DATE=$issue_date $last_updated_t -->
+<!-- HOSTNAME=$hostname -->
 END
 
 close OUTPUT;
