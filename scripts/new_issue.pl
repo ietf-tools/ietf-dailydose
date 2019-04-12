@@ -97,7 +97,7 @@ if ((@ARGV == 5) && ($ARGV[4] eq "--not-primary")) {
     pop @ARGV;
 }
 
-die "usage: new_issue data-dir issue-number output-dir\n" unless (@ARGV == 3);
+die "usage: new_issue data-dir issue-number output-dir hostname\n" unless (@ARGV == 4);
 my $newer = $ARGV[0];
 my $issue = $ARGV[1];
 my $dir = $ARGV[2];
