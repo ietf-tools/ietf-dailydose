@@ -44,7 +44,7 @@ select STDOUT; $|=1;
 my $hostname = `hostname`;
 $hostname =~ s/\s+//gs;
 my $PRIMARY = 0;
-if ($hostname =~ /durif/) {
+if ($hostname =~ /zinfandel/) {
     $PRIMARY = 1;
 } 
 print "main: starting on $hostname (", ($PRIMARY ? "" : "not "), "primary)\n";
