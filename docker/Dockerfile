@@ -13,7 +13,7 @@ RUN apt-get update \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-RUN a2enmod actions auth_digest cgi headers include proxy proxy_http
+RUN a2enmod actions auth_digest cgi headers include proxy proxy_http ssl
 ADD 000-default.conf /etc/apache2/sites-available/000-default.conf
 ADD servername.conf /etc/apache2/conf-enabled/servername.conf
 ADD digest /var/local/loginmgr/digest
