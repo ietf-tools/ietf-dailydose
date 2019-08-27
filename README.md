@@ -56,10 +56,10 @@ Next, start the container: `docker/run`:
 Now, what can you do with it? If you run
 
 ```
-perl dailydose-current/scripts/new_issue.pl data/$(cat data/previous.txt) 9000  .
+perl dailydose-current/scripts/new_issue.pl data/$(cat data/previous.txt) 9000 . doesntmatter
 ```
 
-You can now browse to http://(docker-machine-ip):4444/dailydose/9000.html!
+You can now browse to http://localhost:4444/dailydose/9000.html!
 
 Next you could try this:
 

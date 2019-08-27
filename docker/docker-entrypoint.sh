@@ -16,10 +16,11 @@ fi
 if [ -f data/previous.txt ]; then
   echo "Directory $(pwd)/data already exists, not downloading"
 else
-  echo "Downloading $(pwd)/data from tools.ietf.org (two latest versions only)"
-  versions=$(wget --no-verbose --output-document - https://durif.tools.ietf.org/dailydose/data/ | perl -ne 'if (/href=\"([0-9]+)/) { print $1, "\n"; }' | sort | tail -2)
+  toolshost="zinfandel.tools.ietf.org"
+  echo "Downloading $(pwd)/data from $toolshost (two latest versions only)"
+  versions=$(wget --no-verbose --output-document - https://$toolshost/dailydose/data/ | perl -ne 'if (/href=\"([0-9]+)/) { print $1, "\n"; }' | sort | tail -2)
   for version in $versions; do
-    wget --recursive --no-parent --level=1 --no-clobber --no-host-directories --directory-prefix=data --cut-dirs=2 --no-verbose https://durif.tools.ietf.org/dailydose/data/$version/
+    wget --recursive --no-parent --level=1 --no-clobber --no-host-directories --directory-prefix=data --cut-dirs=2 --no-verbose https://$toolshost/dailydose/data/$version/
     echo $version > data/previous.txt
   done
 fi
