@@ -1,6 +1,6 @@
 #!/bin/sh
 DST=$HOME/public_html
-DSTURL="http://merlot.tools.ietf.org/~pasi/"
+DSTURL="https://zinfandel.tools.ietf.org/~pasi/"
 DIR=/www/tools.ietf.org/dailydose/
 
 cd $DIR
