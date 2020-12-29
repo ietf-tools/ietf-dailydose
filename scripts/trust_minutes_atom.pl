@@ -35,8 +35,7 @@
 use strict;
 use MyAtomWriter;
 
-my $base1 = 'http://trustee.ietf.org/Minutes/';
-my $base2 = 'http://trustee.ietf.org/minutes.html';
+my $base = 'https://trustee.ietf.org/documents/minutes/';
 
 die "usage: trust_minutes_atom data-XXX data-YYY\n" unless (@ARGV == 2);
 my $input = $ARGV[1] . '/trust_minutes.html';
@@ -46,7 +45,7 @@ my $atom = new MyAtomWriter();
 $atom->feed
     (
      title => 'IETF Trust Meeting Minutes',
-     link => $base2,
+     link => $base,
      id => "tag:pasi\@people.nokia.net,2009:trust_minutes_atom",
      author => "IETF Trust"
      );
@@ -55,21 +54,16 @@ $atom->feed
 open(INPUT, "<:encoding(iso-8859-1)", $input) || die "$input: $!\n";
 my $count = 0;
 while ($_ = <INPUT>) {
-    if (/<a href="(http:\/\/trustee.ietf.org\/Minutes\/|\/Minutes\/)([^"]+)">(.*?)<\/a>/i) {
+    if (/<a href="(https:\/\/trustee.ietf.org\/wp-content\/uploads\/)([^"]+minutes[^"]+)">(.*?)<\/a>/i) {
         my ($prefix, $link, $date) = ($1, $2, $3);
         my $id = "tag:pasi\@people.nokia.net,2009:trust_minutes_atom,$link";
-	$date =~ s/Minutes for the //;
-        $date =~ s/(at)? \d?\d:\d\d ([AP]M )?[A-Z]{3}//;
-	$date =~ s/Wednesday|Thursday//;
-        $date =~ s/,\s*,/,/g;
-        $date =~ s/\s+,/,/g;
         $date =~ s/\s+/ /g;
         $atom->entry
             (
-             title => "$date",
-             link => "$base1$link",
+             title => "IETF Trust Minutes: $date",
+             link => "$prefix$link",
              id => $id
-	     );
+             );
         last if (++$count > 20);
     }
 }

@@ -69,7 +69,7 @@ my @files =
      'https://iaoc.ietf.org/minutes.html',
 
      'trust_minutes.html',
-     'https://trustee.ietf.org/minutes.html',
+     'https://trustee.ietf.org/documents/minutes/',
 
      'rfc_queue.xml',
      'https://www.rfc-editor.org/queue.xml'

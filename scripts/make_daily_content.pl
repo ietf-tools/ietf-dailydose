@@ -367,7 +367,7 @@ print_atom_unread("$newer/iaoc_minutes_unread.xml");
 print_atom_unread("$newer/trust_minutes_unread.xml");
 print_end_ul();
 
-print '<div class="more">more minutes: <a href="https://www.ietf.org/about/groups/iesg/minutes/">IESG &raquo;</a> &nbsp; <a href="https://www.iab.org/documents/minutes/">IAB &raquo;</a> &nbsp; <a href="https://iaoc.ietf.org/minutes.html">IAOC &raquo;</a> &nbsp; <a href="https://trustee.ietf.org/minutes.html">Trust &raquo;</a></div>', "\n\n";
+print '<div class="more">more minutes: <a href="https://www.ietf.org/about/groups/iesg/minutes/">IESG &raquo;</a> &nbsp; <a href="https://www.iab.org/documents/minutes/">IAB &raquo;</a> &nbsp; <a href="https://iaoc.ietf.org/minutes.html">IAOC &raquo;</a> &nbsp; <a href="https://trustee.ietf.org/documents/minutes/">Trust &raquo;</a></div>', "\n\n";
 
 #---------------------------------------------------------------------------
 
