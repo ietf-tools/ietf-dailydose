@@ -49,7 +49,7 @@ $atom->feed
      author => '?'
      );
 
-open(INPUT, $input) || die "$input: $!\n";
+open(INPUT, "<:utf8", $input) || die "$input: $!\n";
 my $count = 0;
 $/ = '</tr>';
 while ($_ = <INPUT>) {
