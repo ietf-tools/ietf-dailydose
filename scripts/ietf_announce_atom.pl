@@ -40,6 +40,7 @@ sub unquote {
     $s =~ s/&gt;/>/g;
     $s =~ s/&quot;/"/g;
     $s =~ s/&#39;/'/g;
+    $s =~ s/&#x27;/'/g;
     $s =~ s/&apos;/'/g;
     $s =~ s/&amp;/&/g;
     return $s;
