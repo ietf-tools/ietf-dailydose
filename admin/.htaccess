@@ -1,6 +1,0 @@
-AuthType Digest
-AuthName "IETF"
-AuthUserFile /var/local/loginmgr/digest
-AuthDigestDomain http://merlot.tools.ietf.org/
-Require user pasi.eronen@nokia.com henrik@levkowetz.com pe@iki.fi
-RedirectMatch /dailydose/admin/$ http://merlot.tools.ietf.org/dailydose/admin/articles.pyht
